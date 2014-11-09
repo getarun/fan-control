@@ -4057,17 +4057,16 @@ Source: http://www.murata.com .. GRM43DR72E224KW01.pdf</description>
 <busses>
 </busses>
 <nets>
-<net name="5V" class="0">
+<net name="3,3V" class="0">
 <segment>
 <pinref part="RPI_GPIO" gate="A" pin="1"/>
-<wire x1="12.7" y1="73.66" x2="2.54" y2="73.66" width="0.1524" layer="91"/>
-<wire x1="2.54" y1="73.66" x2="2.54" y2="83.82" width="0.1524" layer="91"/>
-<wire x1="2.54" y1="83.82" x2="38.1" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="12.7" y1="73.66" x2="0" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="0" y1="73.66" x2="0" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="0" y1="83.82" x2="38.1" y2="83.82" width="0.1524" layer="91"/>
 <wire x1="38.1" y1="83.82" x2="43.18" y2="83.82" width="0.1524" layer="91"/>
 <wire x1="43.18" y1="83.82" x2="43.18" y2="73.66" width="0.1524" layer="91"/>
 <pinref part="SENSOR1" gate="A" pin="1"/>
-<wire x1="43.18" y1="73.66" x2="45.72" y2="73.66" width="0.1524" layer="91"/>
-<wire x1="45.72" y1="73.66" x2="53.34" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="43.18" y1="73.66" x2="53.34" y2="73.66" width="0.1524" layer="91"/>
 <wire x1="43.18" y1="83.82" x2="63.5" y2="83.82" width="0.1524" layer="91"/>
 <wire x1="63.5" y1="83.82" x2="68.58" y2="83.82" width="0.1524" layer="91"/>
 <wire x1="68.58" y1="83.82" x2="68.58" y2="73.66" width="0.1524" layer="91"/>
@@ -4077,15 +4076,10 @@ Source: http://www.murata.com .. GRM43DR72E224KW01.pdf</description>
 <wire x1="38.1" y1="81.28" x2="38.1" y2="83.82" width="0.1524" layer="91"/>
 <pinref part="R2" gate="G$1" pin="2"/>
 <wire x1="63.5" y1="81.28" x2="63.5" y2="83.82" width="0.1524" layer="91"/>
-<label x="5.08" y="73.66" size="1.778" layer="95"/>
+<label x="2.54" y="73.66" size="1.778" layer="95"/>
 <junction x="38.1" y="83.82"/>
 <junction x="43.18" y="83.82"/>
 <junction x="63.5" y="83.82"/>
-<wire x1="45.72" y1="73.66" x2="45.72" y2="43.18" width="0.1524" layer="91"/>
-<junction x="45.72" y="73.66"/>
-<pinref part="RELAYS" gate="A" pin="6"/>
-<wire x1="81.28" y1="43.18" x2="45.72" y2="43.18" width="0.1524" layer="91"/>
-<label x="71.12" y="43.18" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="GND" class="0">
@@ -4178,6 +4172,21 @@ Source: http://www.murata.com .. GRM43DR72E224KW01.pdf</description>
 <pinref part="RELAYS" gate="A" pin="3"/>
 <wire x1="33.02" y1="50.8" x2="81.28" y2="50.8" width="0.1524" layer="91"/>
 <label x="66.04" y="50.8" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="5V" class="0">
+<segment>
+<pinref part="RPI_GPIO" gate="A" pin="2"/>
+<wire x1="20.32" y1="73.66" x2="33.02" y2="73.66" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="73.66" x2="33.02" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="66.04" x2="40.64" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="66.04" x2="40.64" y2="43.18" width="0.1524" layer="91"/>
+<pinref part="RELAYS" gate="A" pin="6"/>
+<wire x1="81.28" y1="43.18" x2="53.34" y2="43.18" width="0.1524" layer="91"/>
+<label x="71.12" y="43.18" size="1.778" layer="95"/>
+<wire x1="45.72" y1="43.18" x2="40.64" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="45.72" y1="43.18" x2="53.34" y2="43.18" width="0.1524" layer="91"/>
+<label x="25.4" y="73.66" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
