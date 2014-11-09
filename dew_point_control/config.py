@@ -1,4 +1,5 @@
 import RPi.GPIO as GPIO
+import Adafruit_DHT
 
 class Config():
 
@@ -6,5 +7,7 @@ class Config():
     RELAY_OFF = GPIO.HIGH
     RELAY_ON = GPIO.LOW
 
+    DHT22_MODEL = Adafruit_DHT.DHT22
     DHT22_PIN_INSIDE = 18
     DHT22_PIN_OUTSIDE = 23
+    DHT22_MIN_UPDATE_TIME = 3.0
