@@ -15,11 +15,11 @@ class WeatherDataProvider():
 
     def _get_temperature(self):
         self._update()
-        return self.temperature
+        return self._temperature
 
     def _get_humidity(self):
         self._update()
-        return self.humidity
+        return self._humidity
 
     def _get_dew_point(self):
         """According to http://en.wikipedia.org/wiki/Dew_point
