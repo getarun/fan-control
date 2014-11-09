@@ -11,9 +11,9 @@ setup(name 				= 'fan_control',
       license			= 'GPL',
       url				= 'https://github.com/heroldus/dew_point_control/',
       dependency_links	= ['https://github.com/adafruit/Adafruit_Python_CharLCD/tarball/master#egg=Adafruit_CharLCD-1.0.0',
-                             'https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code/tarball/master#egg=dhtreader-1.0',
+                             'https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code/tarball/master#egg=Adafruit_DHT-1.0.0',
                              'https://github.com/martinrusev/python-daemon/tarball/master#egg=python_daemon-0.1.0'],
-      install_requires	= ['Adafruit_CharLCD>=1.0.0', 'dhtreader>=1.0', 'python_daemon>=0.1.0'],
+      install_requires	= ['Adafruit_CharLCD>=1.0.0', 'Adafruit_DHT>=1.0.0', 'python_daemon>=0.1.0'],
       packages 			= find_packages(),
       data_files        = [('/etc/init.d', ['fan-control'])])
 

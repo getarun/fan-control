@@ -10,6 +10,7 @@ LOGFILE = '/var/log/fan-control.log'
 # Configure logging
 logging.basicConfig(filename=LOGFILE,level=logging.DEBUG)
 
+
 class FanControlDaemon(Daemon):
 
     def run(self):
