@@ -1,0 +1,10 @@
+import RPi.GPIO as GPIO
+
+class Config():
+
+    RELAY_GPIO_PINS = (18, 15, 13, 11)
+    RELAY_OFF = GPIO.HIGH
+    RELAY_ON = GPIO.LOW
+
+    DHT22_PIN_INSIDE = 18
+    DHT22_PIN_OUTSIDE = 23

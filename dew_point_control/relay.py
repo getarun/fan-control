@@ -1,13 +1,10 @@
 # coding=utf-8
 import RPi.GPIO as GPIO
-
+from config import Config
 
 class RelayService():
 
-    OFF = GPIO.HIGH
-    ON = GPIO.LOW
-
-    def __init__(self, relay_gpio_pins=(18, 15, 13, 11)):
+    def __init__(self, relay_gpio_pins):
         self.pins = relay_gpio_pins
         GPIO.setmode(GPIO.BOARD)
         self.setup_pins()
@@ -15,13 +12,13 @@ class RelayService():
     def setup_pins(self):
         for pin in self.pins:
             GPIO.setup(pin, GPIO.OUT)
-            GPIO.output(pin, self.OFF)
+            GPIO.output(pin, Config.RELAY_OFF)
 
-    def switchOn(self, nr):
-        self.switch(nr, self.ON)
+    def switch_on(self, nr):
+        self.switch(nr, Config.RELAY_ON)
 
-    def switchOff(self, nr):
-        self.switch(nr, self.OFF)
+    def switch_off(self, nr):
+        self.switch(nr, Config.RELAY_OFF)
 
     def switch(self, nr, state):
         GPIO.output(self.pins[nr], state)
