@@ -5,7 +5,7 @@ from display import DisplayProvider
 from weather import WeatherDataProvider
 
 
-class DewPointControl():
+class FanControl():
     def __init__(self):
         self.inside = WeatherDataProvider(Config.DHT22_PIN_INSIDE)
         self.outside = WeatherDataProvider(Config.DHT22_PIN_OUTSIDE)
@@ -21,7 +21,7 @@ class DewPointControl():
         self.lcd.clear()
         self.lcd.show(message)
 
-
-DewPointControl().show_dew_point()
+if __name__ == "__main__":
+    FanControl().show_dew_point()
 
 
