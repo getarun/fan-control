@@ -27,7 +27,7 @@ class FanControlDaemon(Daemon):
             except Exception, e:
                 logging.exception("Could not update FanControl: " + e.message)
             logging.debug("FanControl updated.")
-            time.sleep(60)
+            time.sleep(30 * 60)
 
 if __name__ == "__main__":
 
