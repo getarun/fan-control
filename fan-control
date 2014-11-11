@@ -15,9 +15,18 @@ logging.basicConfig(filename=LOGFILE,level=logging.DEBUG)
 class FanControlDaemon(Daemon):
 
     def run(self):
-        self.fan_control = FanControl()
+        try:
+            fan_control = FanControl()
+        except Exception, e:
+            logging.exception("Could not init FanControl: " + e.message)
+        logging.info("FanControl initialized.")
+
         while True:
-            fan_control.update()
+            try:
+                fan_control.update()
+            except Exception, e:
+                logging.exception("Could not update FanControl: " + e.message)
+            logging.debug("FanControl updated.")
             time.sleep(60)
 
 if __name__ == "__main__":
