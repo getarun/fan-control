@@ -3,6 +3,8 @@ import Adafruit_DHT
 
 class Config():
 
+    FAN_RELAY_NUMBERS = (3, 4)
+    AIR_DRYER_NUMBER = 2
     RELAY_GPIO_PINS = (18, 15, 13, 11)
     RELAY_OFF = GPIO.HIGH
     RELAY_ON = GPIO.LOW

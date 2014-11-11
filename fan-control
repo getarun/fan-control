@@ -3,6 +3,7 @@ from daemon import Daemon
 import sys
 import time
 import logging
+from fan_control.fan_control import FanControl
 
 PIDFILE = '/var/run/fan-control.pid'
 LOGFILE = '/var/log/fan-control.log'
@@ -14,20 +15,9 @@ logging.basicConfig(filename=LOGFILE,level=logging.DEBUG)
 class FanControlDaemon(Daemon):
 
     def run(self):
-        # Define your tasks here
-        # Anything written in python is permitted
-        # For example you can clean up your server logs every hour
-
-
-        # Logging errors and exceptions
-        try:
-            pass
-        except Exception, e:
-            logging.exception('Human friendly error message, the exception will be captured and added to the log file automaticaly')
-
+        self.fan_control = FanControl()
         while True:
-            # The daemon will repeat your tasks according to this variable
-            # it's in second so 60 is 1 minute, 3600 is 1 hour, etc.
+            fan_control.update()
             time.sleep(60)
 
 if __name__ == "__main__":

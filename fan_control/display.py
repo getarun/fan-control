@@ -1,3 +1,5 @@
+# coding=utf-8
+
 import Adafruit_CharLCD as LCD
 
 
@@ -10,7 +12,7 @@ class DisplayProvider():
         self.lcd.clear()
 
     def show(self, msg):
-        self.lcd.message(msg)
+        self.lcd.message(msg.replace('°', '\x01'))
 
     def clear(self):
         self.lcd.clear()
