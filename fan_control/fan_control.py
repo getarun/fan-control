@@ -3,6 +3,7 @@ from config import Config
 from relay import RelayService
 from display import DisplayProvider
 from weather import WeatherDataProvider
+import time
 
 
 class FanControl():
@@ -35,8 +36,17 @@ class FanControl():
         self.lcd.clear()
         self.lcd.show(message)
 
+    def save_data(self):
+        timestamp = int(time.time())
+        time_string = time.strftime('%Y-%m-%d %H:%M:%S')
+        with open(Config.DATA_LOG, 'a') as f:
+            f.write('%s,%d,%.1f,%.1f,%.1f,%.1f,%d,%d,%d,%d\n' %
+                    (time_string, timestamp, self.inside.temperature, self.inside.humidity, 0.0, 0.0,
+                     self.relays.is_on(0), self.relays.is_on(1), self.relays.is_on(2), self.relays.is_on(3)))
+
     def update(self):
         self.show_dew_point()
+        self.save_data()
 
 if __name__ == "__main__":
     FanControl().update()
