@@ -19,6 +19,7 @@ class FanControlDaemon(Daemon):
             fan_control = FanControl()
         except Exception, e:
             logging.exception("Could not init FanControl: " + e.message)
+            raise e
         logging.info("FanControl initialized.")
 
         while True:
