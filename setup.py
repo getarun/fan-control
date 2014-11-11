@@ -15,5 +15,6 @@ setup(name 				= 'fan_control',
                              'https://github.com/martinrusev/python-daemon/tarball/master#egg=python_daemon-0.1.0'],
       install_requires	= ['Adafruit_CharLCD>=1.0.0', 'Adafruit_DHT>=1.0.0', 'python_daemon>=0.1.0'],
       packages 			= find_packages(),
-      data_files        = [('/etc/init.d', ['fan-control'])])
+      data_files        = [('/etc/init.d', ['fan-control']),
+                           ('/var/www', ['www/index.html', 'www/dygraph-combined.js'])])
 

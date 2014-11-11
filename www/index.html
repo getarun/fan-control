@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Fan Control</title>
+    <script type="text/javascript" src="dygraph-combined.js"></script>
+</head>
+<body>
+    <div id="graphdiv"></div>
+    <script type="text/javascript">
+        g = new Dygraph(document.getElementById("graphdiv"), "/data.csv", {
+
+        });
+    </script>
+</body>
+</html>
