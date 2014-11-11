@@ -6,8 +6,8 @@ class RelayService():
 
     def __init__(self, relay_gpio_pins):
         self.pins = relay_gpio_pins
-        self.state = {}
         GPIO.setmode(GPIO.BOARD)
+        GPIO.setwarnings(False)
         self.setup_pins()
 
     def setup_pins(self):
@@ -23,13 +23,16 @@ class RelayService():
 
     def switch(self, nr, state):
         GPIO.output(self.pins[nr], state)
-        self.state[nr] = state
 
     def is_on(self, nr):
-        return self.state[nr] == Config.RELAY_ON
+        GPIO.setup(self.pins[nr], GPIO.IN)
+        try:
+            return GPIO.input(self.pins[nr]) == Config.RELAY_ON
+        finally:
+            GPIO.setup(self.pins[nr], GPIO.OUT)
 
     def is_off(self, nr):
-        return self.state[nr] == Config.RELAY_OFF
+        return not self.is_on(nr)
 
 
 
