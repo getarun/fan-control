@@ -11,9 +11,9 @@ class RelayService():
         self.setup_pins()
 
     def setup_pins(self):
-        for pin in self.pins:
-            GPIO.setup(pin, GPIO.OUT)
-            GPIO.output(pin, Config.RELAY_OFF)
+        for index in range(len(self.pins)):
+            GPIO.setup(self.pins[index], GPIO.OUT)
+            self.switch_off(index)
 
     def switch_on(self, nr):
         self.switch(nr, Config.RELAY_ON)
