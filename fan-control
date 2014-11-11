@@ -9,7 +9,7 @@ PIDFILE = '/var/run/fan-control.pid'
 LOGFILE = '/var/log/fan-control.log'
 
 # Configure logging
-logging.basicConfig(filename=LOGFILE,level=logging.DEBUG)
+logging.basicConfig(filename=LOGFILE,level=logging.INFO)
 
 
 class FanControlDaemon(Daemon):
