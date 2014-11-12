@@ -40,8 +40,10 @@ class FanControl():
         timestamp = int(time.time())
         time_string = time.strftime('%Y-%m-%d %H:%M:%S')
         with open(Config.DATA_LOG, 'a') as f:
-            f.write('%s,%d,%.1f,%.1f,%.1f,%.1f,%d,%d,%d,%d\n' %
-                    (time_string, timestamp, self.inside.temperature, self.inside.humidity, 0.0, 0.0,
+            f.write('%s,%d,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%d,%d,%d,%d\n' %
+                    (time_string, timestamp,
+                     self.inside.temperature, self.inside.humidity, self.inside.dew_point,
+                     0.0, 0.0, 0.0,
                      self.relays.is_on(0), self.relays.is_on(1), self.relays.is_on(2), self.relays.is_on(3)))
 
     def update(self):
