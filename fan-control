@@ -1,4 +1,15 @@
 #!/usr/bin/python
+### BEGIN INIT INFO
+# Provides:          fan-control
+# Required-Start:    $remote_fs $network $time
+# Required-Stop:     $remote_fs $network $time
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Fan Control Daemon
+# Description:       Starts the Fan Control Daemon
+### END INIT INFO
+
+
 from daemon import Daemon
 import sys
 import time
