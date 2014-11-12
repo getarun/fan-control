@@ -3,14 +3,61 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Fan Control</title>
-    <script type="text/javascript" src="dygraph-combined.js"></script>
+    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="highcharts.js"></script>
 </head>
 <body>
-    <div id="graphdiv"></div>
-    <script type="text/javascript">
-        g = new Dygraph(document.getElementById("graphdiv"), "/data.csv", {
+<div id="container" style="width:100%; height:400px;"></div>
+<script>
+    $(function () {
+        var options = {
+            chart: {
+                renderTo: 'container'
+            },
+            title: {
+                text: 'Fan Control'
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            yAxis: {
+                title: {
+                    text: 'Units'
+                }
+            },
+            series: [
+                {name: 'Temperature Inside', data: []},
+                {name: 'Humidity Inside', data: []},
+                {name: 'Dew Point Inside', data: []}
+                //{name: 'Temperature Outside', data: []},
+                //{name: 'Humidity Outside', data: []},
+                //{name: 'Dew Point Outside', data: []}
+            ]
+        };
 
+        $.ajax({
+            url: 'data.txt',
+            dataType: 'text',
+            success: function (data) {
+                // Split the lines
+                var lines = data.split('\n');
+
+                $.each(lines, function (lineNo, line) {
+                    var items = line.split(',');
+                    var timestamp = parseInt(items[1]) * 1000;
+                    options.series[0].data.push([timestamp, parseFloat(items[2])]);
+                    options.series[1].data.push([timestamp, parseFloat(items[3])]);
+                    options.series[2].data.push([timestamp, parseFloat(items[4])]);
+                    //options.series[3].data.push([timestamp, parseFloat(items[5])]);
+                    //options.series[4].data.push([timestamp, parseFloat(items[6])]);
+                    //options.series[5].data.push([timestamp, parseFloat(items[7])]);
+                });
+
+                // Create the chart
+                var chart = new Highcharts.Chart(options);
+            }
         });
-    </script>
+    });
+</script>
 </body>
 </html>
