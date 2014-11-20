@@ -3,88 +3,68 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Fan Control</title>
-    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="//code.highcharts.com/highcharts.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
 </head>
 <body>
 <div id="container" style="width:100%; height:400px;"></div>
 <script>
-    $(function () {
-        var options = {
-            chart: {
-                renderTo: 'container'
-            },
-            title: {
-                text: 'Fan Control'
-            },
-            xAxis: {
-                type: 'datetime'
-            },
-            yAxis: [
-                { // Primary yAxis
-                    labels: {
-                        format: '{value}°C',
-                        style: {
-                            color: Highcharts.getOptions().colors[2]
+        function drawChart() {
+            $.ajax({
+                url: 'data.txt',
+                dataType: 'text',
+                success: function (csvString) {
+                    var arrayData = $.csv.toArrays(csvString);
+                    for (var i = 0; i < arrayData.length; i++) {
+                        arrayData[i][1] = new Date(parseFloat(arrayData[i][1]) * 1000);
+                        for (var x = 2; x <= 7; x++) {
+                            arrayData[i][x] = parseFloat(arrayData[i][x]);
                         }
-                    },
-                    title: {
-                        text: 'Temperature',
-                        style: {
-                            color: Highcharts.getOptions().colors[2]
+                        for (var x = 8; x <= 11; x++) {
+                            arrayData[i][x] = parseInt(arrayData[i][x]);
                         }
                     }
-                }, { // Secondary yAxis
-                    gridLineWidth: 0,
-                    title: {
-                        text: 'Humidity',
-                        style: {
-                            color: Highcharts.getOptions().colors[0]
+
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'DateTime');
+                    data.addColumn('datetime', 'Timestamp');
+                    data.addColumn('number', 'Temperature Inside');
+                    data.addColumn('number', 'Humidity Inside');
+                    data.addColumn('number', 'Dew Point Inside');
+                    data.addColumn('number', 'Temperature Outside');
+                    data.addColumn('number', 'Humidity Outside');
+                    data.addColumn('number', 'Dew Point Outside');
+                    data.addColumn('number', 'Relay 1');
+                    data.addColumn('number', 'Relay 2');
+                    data.addColumn('number', 'Relay 3');
+                    data.addColumn('number', 'Relay 4');
+                    data.addRows(arrayData);
+
+                    var view = new google.visualization.DataView(data);
+                    view.setColumns([1, 2, 3, 4]);
+
+                    var options = {
+                        title: 'Fan Control',
+                        vAxes: {
+                            0: {logScale: false, format: '#°C'},
+                            1: {logScale: false, format: '#\'%\''}
+                        },
+                        series: {
+                            0: {targetAxisIndex: 0},
+                            1: {targetAxisIndex: 1},
+                            2: {targetAxisIndex: 0}
                         }
-                    },
-                    labels: {
-                        format: '{value} %',
-                        style: {
-                            color: Highcharts.getOptions().colors[0]
-                        }
-                    },
-                    opposite: true
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('container'));
+                    chart.draw(view, options);
                 }
-            ],
-            series: [
-                {name: 'Temperature Inside', data: []},
-                {name: 'Humidity Inside', data: [], yAxis: 1},
-                {name: 'Dew Point Inside', data: []}
-                //{name: 'Temperature Outside', data: []},
-                //{name: 'Humidity Outside', data: []},
-                //{name: 'Dew Point Outside', data: []}
-            ]
-        };
+            });
+        }
 
-        $.ajax({
-            url: 'data.txt',
-            dataType: 'text',
-            success: function (data) {
-                // Split the lines
-                var lines = data.split('\n');
-
-                $.each(lines, function (lineNo, line) {
-                    var items = line.split(',');
-                    var timestamp = parseInt(items[1]) * 1000;
-                    options.series[0].data.push([timestamp, parseFloat(items[2])]);
-                    options.series[1].data.push([timestamp, parseFloat(items[3])]);
-                    options.series[2].data.push([timestamp, parseFloat(items[4])]);
-                    //options.series[3].data.push([timestamp, parseFloat(items[5])]);
-                    //options.series[4].data.push([timestamp, parseFloat(items[6])]);
-                    //options.series[5].data.push([timestamp, parseFloat(items[7])]);
-                });
-
-                // Create the chart
-                var chart = new Highcharts.Chart(options);
-            }
-        });
-    });
+        google.load("visualization", "1", {packages:["corechart"]});
+        google.setOnLoadCallback(drawChart);
 </script>
 </body>
 </html>
