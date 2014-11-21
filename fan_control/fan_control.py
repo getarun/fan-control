@@ -14,7 +14,9 @@ class FanControl():
         self.relays = RelayService(Config.RELAY_GPIO_PINS)
 
     def show_dew_point(self):
-        message = "%.1f°C %.1f%%\nDP: %.1f°C" % (self.inside.temperature, self.inside.humidity, self.inside.dew_point)
+        message = "%.1f° %.1f%% %.1f°\n%.1f° %.1f%% %.1f°" % \
+                  (self.inside.temperature, self.inside.humidity, self.inside.dew_point,
+                   self.outside.temperature, self.outside.humidity, self.outside.dew_point)
         print message
         self.show_message(message)
 
@@ -43,7 +45,7 @@ class FanControl():
             f.write('%s,%d,%.1f,%.1f,%.1f,%.1f,%.1f,%.1f,%d,%d,%d,%d\n' %
                     (time_string, timestamp,
                      self.inside.temperature, self.inside.humidity, self.inside.dew_point,
-                     0.0, 0.0, 0.0,
+                     self.outside.temperature, self.outside.humidity, self.outside.dew_point,
                      self.relays.is_on(0), self.relays.is_on(1), self.relays.is_on(2), self.relays.is_on(3)))
 
     def update(self):
