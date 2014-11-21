@@ -3,6 +3,14 @@ import Adafruit_DHT
 
 class Config():
 
+    HUMIDITY_THRESHOLD = 60.0
+
+    MIN_TEMPERATURE_INSIDE = 12.5
+
+    MIN_DEW_POINT_DIFFERENCE = 5.0
+
+    UNWANTED_FAN_HOURS = [22, 23, 0, 1, 2, 3, 4 , 5, 6, 7]
+
     FAN_RELAY_NUMBERS = (0, 1)
     AIR_DRYER_NUMBER = 2
     RELAY_GPIO_PINS = (11, 13, 15, 18)

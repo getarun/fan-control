@@ -3,6 +3,7 @@ from config import Config
 from relay import RelayService
 from display import DisplayProvider
 from weather import WeatherDataProvider
+from datetime import datetime
 import time
 
 
@@ -48,9 +49,36 @@ class FanControl():
                      self.outside.temperature, self.outside.humidity, self.outside.dew_point,
                      self.relays.is_on(0), self.relays.is_on(1), self.relays.is_on(2), self.relays.is_on(3)))
 
+    def is_dew_point_outside_small_enough(self):
+        return self.inside.dew_point - self.outside.dew_point >= Config.MIN_DEW_POINT_DIFFERENCE
+
+    def is_drying_necessary(self):
+        return self.inside.humidity > Config.HUMIDITY_THRESHOLD
+
+    def is_at_unwanted_time(self):
+        hour = datetime.now().hour
+        return hour in Config.UNWANTED_FAN_HOURS
+
+    def is_too_cold(self):
+        return self.inside.temperature < Config.MIN_TEMPERATURE_INSIDE
+
+    def control_fans(self):
+        if not self.is_drying_necessary():
+            self.switch_off_fans()
+            self.switch_off_air_dryer()
+        elif self.is_dew_point_outside_small_enough() and not self.is_at_unwanted_time() and not self.is_too_cold():
+            self.switch_on_fans()
+            self.switch_off_air_dryer()
+        else:
+            self.switch_off_fans()
+            self.switch_on_air_dryer()
+
+
+
     def update(self):
         self.show_dew_point()
         self.save_data()
+        #self.control_fans()
 
 if __name__ == "__main__":
     FanControl().update()
