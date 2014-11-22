@@ -78,7 +78,7 @@ class FanControl():
     def update(self):
         self.show_dew_point()
         self.save_data()
-        #self.control_fans()
+        self.control_fans()
 
 if __name__ == "__main__":
     FanControl().update()
